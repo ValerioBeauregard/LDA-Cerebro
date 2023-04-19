@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>SmartWater Control</title>
+        <link rel="stylesheet" href="{% static 'smartwater/css/style.css' %}">
+    </head>
+    <body>
+
+      <div id="cerebro-main">
+        <h1>CEREBRO</h1>
+        <button id="envio-datos">Envio de datos</button>
+      </div>
+
+      <div>
+        <h2>Data</h2>
+        {% for elemento in data %}
+          <div>
+            <p>Id del dispositivo: {{ elemento.id_dispositivo }}, nivel: {{ elemento.nivel }}, motor: {{ elemento.motor }}, Toma de agua: {{ elemento.fuente }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- JavaScript -->
+      <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+      <script src="{% static 'smartwater/js/main.js' %}"></script>
+    </body>
+</html>
