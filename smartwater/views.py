@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import User, Niveles
 
+SECRET_KEY = "JHo927j-LDA_220423/?d?v?=2-23jgh"
 
 def index(request):
   data = Niveles.objects.all()
@@ -26,18 +27,24 @@ def nivel_save(request):
     # Getting request data
     data = json.loads(request.body)
 
+    secret_key = data.get("secret_key")
     id_dispositivo = data.get("id_dispositivo")
     nivel = data.get("nivel")
     motor = data.get("motor")
     fuente = data.get("fuente")
 
-    # Getting the company
-    registro = Niveles.objects.create(id_dispositivo=id_dispositivo, nivel=nivel, motor=motor, fuente=fuente)
+    if secret_key == SECRET_KEY:
+      # Making the register
+      registro = Niveles.objects.create(id_dispositivo=id_dispositivo, nivel=nivel, motor=motor, fuente=fuente)
 
-    # Applying changes
-    registro.save()
+      # Applying changes
+      registro.save()
 
-    return JsonResponse({"Success": 'Data saved successfully!'}, safe=False)
+      return JsonResponse({"Success": 'Data saved successfully!'}, status=200, safe=False)
+
+    else:
+      return JsonResponse({"error": 'You are not authorized'}, status=401, safe=False)
+
 
 
 

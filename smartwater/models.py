@@ -8,7 +8,7 @@ class User(AbstractUser):
 
 class Niveles(models.Model):
     id_dispositivo = models.CharField(max_length=30, blank=True, null=True)
-    nivel = models.IntegerField()
+    nivel = models.FloatField()
     motor = models.BooleanField(default=False)
     fuente = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
